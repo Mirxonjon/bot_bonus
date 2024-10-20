@@ -22,7 +22,7 @@ const Operators = new Schema({
     Reprimand :String, // Премичание
     days :String ,
     percentage : String,
-   
+    picure_link :String ,
     updateAt: Date,
     createdAt: Date
 

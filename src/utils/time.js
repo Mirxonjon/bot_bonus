@@ -49,8 +49,8 @@ function formatDate(date) {
 
 
 const updateAllOperatorsData = async () => {
-  const allOperators255 = await readSheets('255','A:P3')
-  const allOperators229 = await readSheets('229','A:V3')
+  const allOperators255 = await readSheets('255','A:Q3')
+  const allOperators229 = await readSheets('229','A:W3')
   
   if(allOperators255?.length) {
     let a=await Operators.find().lean()
@@ -82,6 +82,7 @@ const updateAllOperatorsData = async () => {
               Reprimand: e[13], // Примечание
               days: e[14],
               percentage: e[15],
+              picure_link :e[16],
               updatedAt: new Date(), // Set the updated time
             },
           }
@@ -104,6 +105,7 @@ const updateAllOperatorsData = async () => {
           Reprimand: e[13], // Примечание
           days: e[14],
           percentage: e[15],
+          picure_link :e[16],
           createdAt: new Date(),
         });
         await newOperator.save();
@@ -154,6 +156,7 @@ const updateAllOperators229 = async (allOperators229) => {
                 Reprimand: e[19],
                 days: e[20],
                 percentage: e[21],
+                picure_link :e[22],
                 updatedAt: new Date(), // Set the updated time
               },
             }
@@ -181,6 +184,8 @@ const updateAllOperators229 = async (allOperators229) => {
             Reprimand: e[19],
             days: e[20],
             percentage: e[21],
+            picure_link :e[22],
+
             createdAt: new Date(),
           });
           await newOperator.save();

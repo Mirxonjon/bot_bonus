@@ -14,6 +14,8 @@ console.log(findUser);
 let list = text.split('|')
 console.log(list);
 
+// if()
+
 
 
     if(!isNaN(list[0]) || !isNaN(list[1])){
@@ -22,12 +24,14 @@ console.log(list);
 // const findOperators = await Operators.find()
     let arr = []
     for(let e of operators) {
-        arr.push([{
-            text:`${e.full_name } ${e.operator_id}`,
-            callback_data : `operator_${e._id}` 
-        }])
-    } 
+        if(arr.length < 20) {
+            arr.push([{
+                text:`${e.full_name } ${e.operator_id}`,
+                callback_data : `operator_${e._id}` 
+            }])
+    } }
         console.log(arr);
+
         await  bot.sendMessage( chatId, `Список операторов`,
                         {
                         //    parse_mode :'HTML',
@@ -38,28 +42,28 @@ console.log(list);
                         
                            }})
     } else {
-
-
                            const regex = new RegExp(text, 'i'); // 'i' bayrog'i katta-kichik harfni inobatga olmaslikni bildiradi
                            const operators = await Operators.find({ full_name: { $regex: regex } });
                    // const findOperators = await Operators.find()
                    
                        let arr = []
                        for(let e of operators) {
-                           arr.push([{
-                               text:`${e.full_name } ${e.operator_id}`,
-                               callback_data : `operator_${e._id}` 
-                           }])
+                        if(arr.length < 50) {
+                            arr.push([{
+                                text:`${e.full_name } ${e.operator_id}`,
+                                callback_data : `operator_${e._id}` 
+                            }])
+                        }
+
                        } 
-                           console.log(arr);
+                           console.log(arr.length);
                            await  bot.sendMessage( chatId, `Список операторов`,
                                            {
                                            //    parse_mode :'HTML',
                                               reply_markup: {
                                                 remove_keyboard: true,
                                                 inline_keyboard :arr
-                   
-                                           
+
                                               }})
     }
 
@@ -116,7 +120,14 @@ const getOneOperator = async (query) => {
 // Haqiqatan ham darsni boshlamoqchimisiz?
 //     `
 
-
+if(findOperator?.picure_link) {
+    await  bot.sendPhoto( chatId, findOperator?.picure_link  ,{
+        caption: textHtml, 
+        parse_mode: 'HTML',
+        reply_markup: {
+            remove_keyboard: true,
+        },});
+} else{
     await  bot.sendMessage( chatId, textHtml,
         {
            parse_mode :'HTML',
@@ -124,6 +135,9 @@ const getOneOperator = async (query) => {
              remove_keyboard: true,
            },
          });
+}
+
+
 }
 
 
