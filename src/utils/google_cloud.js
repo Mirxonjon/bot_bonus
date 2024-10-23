@@ -11,7 +11,6 @@ const auth = new google.auth.GoogleAuth({
 
 
  const readSheets = async (list ,rangeCut) => {
-    console.log(process.env.SHEETID);
   const sheets = google.sheets({ version: 'v4', auth });
   const spreadsheetId = process.env.SHEETID;
   const range = `${list}!${rangeCut}`;  // Specifies the range to read.

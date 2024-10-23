@@ -35,7 +35,7 @@ async function dev() {
             console.log('server is runing' + process.env.PORT );
         })
 
-    await updateAllOperatorsData(); 
+    // await updateAllOperatorsData(); 
     } catch (error) {
         console.log(error.message);
     }

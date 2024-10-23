@@ -23,6 +23,7 @@ const Operators = new Schema({
     days :String ,
     percentage : String,
     picure_link :String ,
+    explanatory : String,
     updateAt: Date,
     createdAt: Date
 

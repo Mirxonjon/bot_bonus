@@ -6,7 +6,8 @@ const bot = new TELEGRAM_BOT(process.env.TOKEN, {
 
 
 bot.setMyCommands([
-    { command: '/start', description: 'Botni boshlash' },
+    { command: '/start', description: 'Начать чат' },
+    { command: '/update', description: 'Обновление данных' },
 ]);
 
 

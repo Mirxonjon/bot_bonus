@@ -49,8 +49,8 @@ function formatDate(date) {
 
 
 const updateAllOperatorsData = async () => {
-  const allOperators255 = await readSheets('255','A:Q3')
-  const allOperators229 = await readSheets('229','A:W3')
+  const allOperators255 = await readSheets('255','A:R3')
+  const allOperators229 = await readSheets('229','A:X3')
   
   if(allOperators255?.length) {
     let a=await Operators.find().lean()
@@ -83,6 +83,7 @@ const updateAllOperatorsData = async () => {
               days: e[14],
               percentage: e[15],
               picure_link :e[16],
+              explanatory: e[17] ,
               updatedAt: new Date(), // Set the updated time
             },
           }
@@ -106,6 +107,7 @@ const updateAllOperatorsData = async () => {
           days: e[14],
           percentage: e[15],
           picure_link :e[16],
+          explanatory: e[17] ,
           createdAt: new Date(),
         });
         await newOperator.save();
@@ -116,9 +118,8 @@ const updateAllOperatorsData = async () => {
     
   } 
   await updateAllOperators229(allOperators229)
-  console.log( a.length);
   } else {
-    console.log('No teachers');
+    console.log('No Users');
   }
 
 
@@ -157,6 +158,7 @@ const updateAllOperators229 = async (allOperators229) => {
                 days: e[20],
                 percentage: e[21],
                 picure_link :e[22],
+                explanatory: e[23] ,
                 updatedAt: new Date(), // Set the updated time
               },
             }
@@ -185,7 +187,7 @@ const updateAllOperators229 = async (allOperators229) => {
             days: e[20],
             percentage: e[21],
             picure_link :e[22],
-
+            explanatory: e[23] ,
             createdAt: new Date(),
           });
           await newOperator.save();

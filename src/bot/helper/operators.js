@@ -5,14 +5,13 @@ const { bot } = require("../bot")
 
 const Users = require("../../model/users");
 const Operators = require("../../model/allOperators");
+const { updateAllOperatorsData } = require("../../utils/time");
 
 const  getOperators = async( msg ) => {
     const chatId = msg.from.id
     let text = msg.text
 const findUser = await Users.findOne({chat_id: chatId})
-console.log(findUser);
 let list = text.split('|')
-console.log(list);
 
 // if()
 
@@ -30,7 +29,6 @@ console.log(list);
                 callback_data : `operator_${e._id}` 
             }])
     } }
-        console.log(arr);
 
         await  bot.sendMessage( chatId, `Список операторов`,
                         {
@@ -56,7 +54,6 @@ console.log(list);
                         }
 
                        } 
-                           console.log(arr.length);
                            await  bot.sendMessage( chatId, `Список операторов`,
                                            {
                                            //    parse_mode :'HTML',
@@ -79,6 +76,8 @@ const getOneOperator = async (query) => {
     const operatorId = splitText[1]
     const finduser = await Users.findOne({chat_id :chatId}).lean()
     const findOperator = await Operators.findOne({_id : operatorId})
+    let remarks  = findOperator.explanatory
+    const remarksArray = remarks.split(';').filter(item => item.trim() !== '');
 
 
     let textHtml = `
@@ -94,7 +93,8 @@ const getOneOperator = async (query) => {
 
 📌KPI - <b>${findOperator.fact_ball}</b>
 📝Примечание - <b>${findOperator.Reprimand}</b>
-    `;
+
+✍️Объяснительные: <b>${remarksArray?.length}</b>`;
 
     if(findOperator?.fact_call_229) {
         textHtml = `
@@ -114,12 +114,26 @@ const getOneOperator = async (query) => {
 📌KPI - <b>${findOperator?.fact_ball}</b>
 🎓Обучение - <b>${findOperator?.Education_time}</b>
 📝Примечание - <b>${findOperator?.Reprimand}</b>
-    `;
-    }
-//     const textHtmluz = `<b> ${text} </b>
-// Haqiqatan ham darsni boshlamoqchimisiz?
-//     `
 
+✍️Объяснительные: <b>${remarksArray?.length}</b>`;
+    }
+
+
+for (let i = 0; i < remarksArray.length; i++) {
+    const item = remarksArray[i];
+    const arr = item.split(':!');
+    
+    
+    if (item) {
+        let title = arr[0]?.trim();
+        let link = arr[1]?.trim();
+        let description = arr[2]?.trim(); 
+
+        if (title && link && description) {
+            textHtml += `\n${i + 1}. <a href="${link}">${title}</a> ${description}`;
+        }
+    }
+}
 if(findOperator?.picure_link) {
     await  bot.sendPhoto( chatId, findOperator?.picure_link  ,{
         caption: textHtml, 
@@ -144,11 +158,42 @@ if(findOperator?.picure_link) {
 
 
 
+const notAdmistration = async (msg) => { 
+    const chatId = msg.from.id
+let text = `Извините, но вы не входите в руководственный состав❗️`
+    await  bot.sendMessage( chatId, text,
+        {
+           reply_markup: {
+             remove_keyboard: true,
+           },
+         });
+
+}
+
+
+const updateDatabase= async (msg) => { 
+    const chatId = msg.from.id
+
+    await updateAllOperatorsData(); 
+let text = `База данных обновлена`
+    await  bot.sendMessage( chatId, text,
+        {
+           reply_markup: {
+             remove_keyboard: true,
+           },
+         });
+
+}
+
+
+
 
 
 
 module.exports = {
     getOperators,
-    getOneOperator
+    getOneOperator,
+    notAdmistration,
+    updateDatabase
 
 }

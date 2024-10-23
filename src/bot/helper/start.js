@@ -5,7 +5,6 @@ const Users = require("../../model/users");
 const  start = async( msg ) => {
     const chatId = msg.from.id
 const findUser = await Users.findOne({chat_id: chatId})
-console.log(findUser);
     if(findUser && findUser?.access == 'true'){
         findUser.action = 'get_operators'
 
