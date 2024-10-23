@@ -77,8 +77,11 @@ const getOneOperator = async (query) => {
     const finduser = await Users.findOne({chat_id :chatId}).lean()
     const findOperator = await Operators.findOne({_id : operatorId})
     let remarks  = findOperator.explanatory
-    const remarksArray = remarks.split(';').filter(item => item.trim() !== '');
-
+    let remarksArray = remarks.split(';').filter(item => item.trim() !== '');
+    if(remarks == `Объяснительных нет`) {
+        remarksArray = [] 
+        
+    }
 
     let textHtml = `
 👤${findOperator.full_name} - <b>${findOperator.operator_id}</b>
@@ -118,22 +121,25 @@ const getOneOperator = async (query) => {
 ✍️Объяснительные: <b>${remarksArray?.length}</b>`;
     }
 
-
-for (let i = 0; i < remarksArray.length; i++) {
-    const item = remarksArray[i];
-    const arr = item.split(':!');
-    
-    
-    if (item) {
-        let title = arr[0]?.trim();
-        let link = arr[1]?.trim();
-        let description = arr[2]?.trim(); 
-
-        if (title && link && description) {
-            textHtml += `\n${i + 1}. <a href="${link}">${title}</a> ${description}`;
+    if(remarks != `Объяснительных нет`){
+        for (let i = 0; i < remarksArray.length; i++) {
+            const item = remarksArray[i];
+            const arr = item.split(':!');
+            
+            
+            if (item) {
+                let title = arr[0]?.trim();
+                let link = arr[1]?.trim();
+                let description = arr[2]?.trim(); 
+        
+                if (title && link && description) {
+                    textHtml += `\n${i + 1}. <a href="${link}">${title}</a> ${description}`;
+                }
+            }
         }
     }
-}
+
+
 if(findOperator?.picure_link) {
     await  bot.sendPhoto( chatId, findOperator?.picure_link  ,{
         caption: textHtml, 
