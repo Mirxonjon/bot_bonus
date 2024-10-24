@@ -10,7 +10,7 @@ bot.on('message' ,  async msg => {
     const username = msg?.from?.username
 
     const findUser = await  Users.findOne({chat_id :chatId}).lean() 
-    let usersAll =  ['mirxonjon' , 'muhammad8999' , 'jamila_Rakhimova' , 'uztelecom_cce' , 'abrorovs'  ]
+    let usersAll =  ['mirxonjon' , 'muhammad8999' , 'jamila_rakhimova' , 'brotheritsme' , 'abrorovs'  ]
     if(usersAll.includes(username?.toLowerCase())) {
         if(text == '/start' || text == 'Menyu' || text == 'Меню' ){
             start(msg)
