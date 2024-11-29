@@ -26,19 +26,15 @@ bot.on('message' ,  async msg => {
     
         if(findUser && text != '/start' && text != '/update' ) {
     
-            if(findUser?.action == 'get_login' ) {
-                confirmlogin(msg)
-            }
-            if(findUser?.action == 'get_password') {
-                confirmPassword(msg)
-            }
+            // if(findUser?.action == 'get_login' ) {
+            //     confirmlogin(msg)
+            // }
+            // if(findUser?.action == 'get_password') {
+            //     confirmPassword(msg)
+            // }
     
             if(findUser.action == 'get_operators') {
                 getOperators(msg)
             }
         }
- 
-
-
-
 })
