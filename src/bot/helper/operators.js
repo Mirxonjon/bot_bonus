@@ -5,14 +5,14 @@ const { bot } = require("../bot")
 
 const Users = require("../../model/users");
 const Operators = require("../../model/allOperators");
-const { updateAllOperatorsData } = require("../../utils/time");
+const { updateAllOperatorsData, DeleteAllOperatorsData } = require("../../utils/time");
 
 const  getOperators = async( msg ) => {
     const chatId = msg.from.id
     let text = msg.text
 const findUser = await Users.findOne({chat_id: chatId})
 let list = text.split('|')
-
+// console.log('okkshun ');
 // if()
 
 
@@ -20,6 +20,7 @@ let list = text.split('|')
     if(!isNaN(list[0]) || !isNaN(list[1])){
         const regex = new RegExp(text, 'i'); // 'i' bayrog'i katta-kichik harfni inobatga olmaslikni bildiradi
         const operators = await Operators.find({ operator_id: { $regex: regex } });
+        // console.log(operators);
 // const findOperators = await Operators.find()
     let arr = []
     for(let e of operators) {
@@ -77,7 +78,7 @@ const getOneOperator = async (query) => {
     const finduser = await Users.findOne({chat_id :chatId}).lean()
     const findOperator = await Operators.findOne({_id : operatorId})
     let remarks  = findOperator.explanatory
-    let remarksArray = remarks.split(';').filter(item => item.trim() !== '');
+    let remarksArray = remarks?.split(';').filter(item => item.trim() !== '');
     if(remarks == `Объяснительных нет`) {
         remarksArray = [] 
         
@@ -122,7 +123,7 @@ const getOneOperator = async (query) => {
     }
 
     if(remarks != `Объяснительных нет`){
-        for (let i = 0; i < remarksArray.length; i++) {
+        for (let i = 0; i < remarksArray?.length; i++) {
             const item = remarksArray[i];
             const arr = item.split(':!');
             
@@ -179,7 +180,7 @@ let text = `Извините, но вы не входите в руководс�
 
 const updateDatabase= async (msg) => { 
     const chatId = msg.from.id
-
+    // console.log('okk');
     await updateAllOperatorsData(); 
 let text = `База данных обновлена`
     await  bot.sendMessage( chatId, text,
@@ -191,15 +192,28 @@ let text = `База данных обновлена`
 
 }
 
+const DeleteDatabase = async (msg) => {
+  const chatId = msg.from.id;
+//   console.log("okk");
+    let message = await DeleteAllOperatorsData();
+// console.log(message);
+  let text = `База данных удаленна`;
+  await bot.sendMessage(chatId, text, {
+    reply_markup: {
+      remove_keyboard: true,
+    },
+  });
+};
+
 
 
 
 
 
 module.exports = {
-    getOperators,
-    getOneOperator,
-    notAdmistration,
-    updateDatabase
-
-}
+  getOperators,
+  getOneOperator,
+  notAdmistration,
+  updateDatabase,
+  DeleteDatabase,
+};

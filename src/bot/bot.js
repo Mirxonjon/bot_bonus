@@ -6,8 +6,9 @@ const bot = new TELEGRAM_BOT(process.env.TOKEN, {
 
 
 bot.setMyCommands([
-    { command: '/start', description: 'Начать чат' },
-    { command: '/update', description: 'Обновление данных' },
+  { command: "/start", description: "Начать чат" },
+  { command: "/update", description: "Обновление данных" },
+  { command: "/delete", description: "Удаления данных" },
 ]);
 
 
