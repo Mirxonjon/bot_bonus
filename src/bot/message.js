@@ -20,6 +20,7 @@ bot.on("message", async (msg) => {
     "jamila_rakhimova",
     "brotheritsme",
     "abrorovs",
+    "nuriddin_alisherovich",
   ];
   if (usersAll.includes(username?.toLowerCase())) {
     if (
