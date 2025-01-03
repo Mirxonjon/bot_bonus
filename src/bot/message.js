@@ -5,6 +5,7 @@ const {
   notAdmistration,
   updateDatabase,
   DeleteDatabase,
+  notUsersMessage,
 } = require("./helper/operators");
 const { start, confirmlogin, confirmPassword } = require("./helper/start");
 
@@ -18,29 +19,33 @@ bot.on("message", async (msg) => {
     "mirxonjon",
     "muhammad8999",
     "jamila_rakhimova",
-    "brotheritsme",
+    "ibonjebob",
     "abrorovs",
     "nuriddin_alisherovich",
   ];
+  let adminUsersAll = ["mirxonjon", "muhammad8999"];
   if (usersAll.includes(username?.toLowerCase())) {
     if (
       text == "/start" ||
       text == "Menyu" ||
-      text == "Меню" 
-    //   text == "/delete"
+      text == "Меню"
+      //   text == "/delete"
     ) {
       start(msg);
     }
+    if (adminUsersAll.includes(username?.toLowerCase())) {
+      if (text == "/update") {
+        updateDatabase(msg);
+      }
 
-    if (text == "/update") {
-      updateDatabase(msg);
-    }
-
-    if (text == "/delete") {
-      DeleteDatabase(msg);
+      if (text == "/delete") {
+        DeleteDatabase(msg);
+      }
+    } else {
+      notAdmistration(msg);
     }
   } else {
-    notAdmistration(msg);
+    notUsersMessage(msg);
   }
 
   if (findUser && text != "/start" && text != "/update" && text != "/delete") {

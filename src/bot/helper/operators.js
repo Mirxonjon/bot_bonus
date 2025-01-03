@@ -165,7 +165,7 @@ if(findOperator?.picure_link) {
 
 
 
-const notAdmistration = async (msg) => { 
+const notUsersMessage = async (msg) => { 
     const chatId = msg.from.id
 let text = `Извините, но вы не входите в руководственный состав❗️`
     await  bot.sendMessage( chatId, text,
@@ -176,6 +176,15 @@ let text = `Извините, но вы не входите в руководс�
          });
 
 }
+const notAdmistration = async (msg) => {
+  const chatId = msg.from.id;
+  let text = `Извините, но вы не входите в состав админов❗️`;
+  await bot.sendMessage(chatId, text, {
+    reply_markup: {
+      remove_keyboard: true,
+    },
+  });
+};
 
 
 const updateDatabase= async (msg) => { 
@@ -213,7 +222,8 @@ const DeleteDatabase = async (msg) => {
 module.exports = {
   getOperators,
   getOneOperator,
-  notAdmistration,
+    notAdmistration,
+    notUsersMessage,
   updateDatabase,
   DeleteDatabase,
 };
