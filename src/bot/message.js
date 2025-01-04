@@ -33,16 +33,17 @@ bot.on("message", async (msg) => {
     ) {
       start(msg);
     }
-    if (adminUsersAll.includes(username?.toLowerCase())) {
-      if (text == "/update") {
-        updateDatabase(msg);
+    if (text == "/update" || text == "/delete") {
+      if (adminUsersAll.includes(username?.toLowerCase())) {
+        if (text == "/update") {
+          updateDatabase(msg);
+        }
+        if (text == "/delete") {
+          DeleteDatabase(msg);
+        }
+      } else {
+        notAdmistration(msg);
       }
-
-      if (text == "/delete") {
-        DeleteDatabase(msg);
-      }
-    } else {
-      notAdmistration(msg);
     }
   } else {
     notUsersMessage(msg);
