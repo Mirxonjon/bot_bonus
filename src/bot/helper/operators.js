@@ -142,6 +142,7 @@ const getOneOperator = async (query) => {
     }
   }
 
+
   if (findOperator?.picure_link) {
     await bot.sendPhoto(chatId, findOperator?.picure_link, {
       caption: textHtml,
@@ -150,6 +151,30 @@ const getOneOperator = async (query) => {
         remove_keyboard: true,
       },
     });
+
+    if (findOperator?.work_schedule) {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    } else {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано.`,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    }
   } else {
     await bot.sendMessage(chatId, textHtml, {
       parse_mode: "HTML",
@@ -157,6 +182,30 @@ const getOneOperator = async (query) => {
         remove_keyboard: true,
       },
     });
+
+    if (findOperator?.work_schedule) {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    } else {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано.`,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    }
   }
 };
 
@@ -206,7 +255,6 @@ const DeleteDatabase = async (msg) => {
       remove_keyboard: true,
     },
   });
-
 
   return message;
 };

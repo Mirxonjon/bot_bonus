@@ -183,11 +183,60 @@ const updateAllOperators229 = async (allOperators229) => {
       }
     }
   }
+
+  await updateAllOperatorsDataGraph();
+};
+const updateAllOperatorsDataGraph = async () => {
+  const allOperators = await readSheets("Табель", "A:AG2");
+  for (let e of allOperators) {
+    if (e.length && e[0]?.length) {
+      let fullName = e[0];
+      let position = e[1];
+      let table = `
+\`\`\`
+01 → ${e[2] || "-"}   | 17 → ${e[18] || "-"} |
+02 → ${e[3] || "-"}   | 18 → ${e[19] || "-"} |
+03 → ${e[4] || "-"}   | 19 → ${e[20] || "-"} |
+04 → ${e[5] || "-"}   | 20 → ${e[21] || "-"} |
+05 → ${e[6] || "-"}   | 21 → ${e[22] || "-"} |
+06 → ${e[7] || "-"}   | 22 → ${e[23] || "-"} |
+07 → ${e[8] || "-"}   | 23 → ${e[24] || "-"} |
+08 → ${e[9] || "-"}   | 24 → ${e[25] || "-"} |
+09 → ${e[10] || "-"}   | 25 → ${e[26] || "-"} |
+10 → ${e[11] || "-"}   | 26 → ${e[27] || "-"} |
+11 → ${e[12] || "-"}   | 27 → ${e[28] || "-"} |
+12 → ${e[13] || "-"}   | 28 → ${e[29] || "-"} |
+13 → ${e[14] || "-"}   | 29 → ${e[30] || "-"} |
+14 → ${e[15] || "-"}   | 30 → ${e[31] || "-"} |
+15 → ${e[16] || "-"}   | 31 → ${e[32] || "-"} |
+16 → ${e[17] || "-"}   | X
+\`\`\`
+`;
+      let formattedScheduleText =
+        `👤 ${fullName}\n` + `💼 ${position}\n` + `${table}`;
+      console.log(formattedScheduleText);
+
+      let findOperator = await Operators.findOne({
+        full_name: fullName,
+      }).lean();
+      if (findOperator) {
+        await Operators.updateOne(
+          { operator_id: findOperator.operator_id },
+          {
+            $set: {
+              work_schedule: table,
+              position: position,
+            },
+          }
+        );
+      }
+    }
+  }
 };
 
 const DeleteAllOperatorsData = async () => {
   try {
-  return  await Operators.deleteMany({});
+    return await Operators.deleteMany({});
   } catch (error) {
     console.error("Xatolik yuz berdi:", error);
   }
@@ -199,4 +248,5 @@ module.exports = {
   dateDayObj,
   updateAllOperatorsData,
   DeleteAllOperatorsData,
+  updateAllOperatorsDataGraph,
 };
