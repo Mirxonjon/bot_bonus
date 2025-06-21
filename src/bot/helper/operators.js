@@ -80,7 +80,6 @@ const getOneOperator = async (query) => {
   if (remarks == `Объяснительных нет`) {
     remarksArray = [];
   }
-
   let textHtml = `
 👤${findOperator.full_name} - <b>${findOperator.operator_id}</b>
 
@@ -142,7 +141,6 @@ const getOneOperator = async (query) => {
     }
   }
 
-
   if (findOperator?.picure_link) {
     await bot.sendPhoto(chatId, findOperator?.picure_link, {
       caption: textHtml,
@@ -166,7 +164,7 @@ const getOneOperator = async (query) => {
     } else {
       await bot.sendMessage(
         chatId,
-        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано.`,
+        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
         {
           parse_mode: "MarkdownV2",
           reply_markup: {
@@ -184,6 +182,7 @@ const getOneOperator = async (query) => {
     });
 
     if (findOperator?.work_schedule) {
+      console.log(text, "text");
       await bot.sendMessage(
         chatId,
         `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
@@ -197,7 +196,7 @@ const getOneOperator = async (query) => {
     } else {
       await bot.sendMessage(
         chatId,
-        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано.`,
+        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
         {
           parse_mode: "MarkdownV2",
           reply_markup: {
