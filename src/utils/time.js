@@ -189,11 +189,34 @@ const updateAllOperators229 = async (allOperators229) => {
 const updateAllOperatorsDataGraph = async () => {
   const allOperators = await readSheets("Табель", "B:AW2");
   for (let e of allOperators) {
+    console.log(typeof(e[36]), e[36] == '',e[36] , 'ev');
     if (e.length && e[0]?.length) {
       let fullName = e[0];
       let position = e[1];
+      const parts = [];
+
+      if (e[33]?.length) parts.push(`Рабочие дни - ${e[33]}`);
+      if (e[34]?.length) parts.push(`Рабочие часы - ${e[34]}\n`);
+      if (!e[34]?.length) parts[parts.length - 1] += "\n";
+      if (e[36]?.length) parts.push(`Вечерние часы - ${e[36]}`);
+      if (e[37]?.length) parts.push(`Ночные часы - ${e[37]}`);
+      if (!e[37]?.length) parts[parts.length - 1] += "\n";
+      if (e[38]?.length) parts.push(`Праздничные - ${e[38]}\n`);
+      if (!e[38]?.length && e[37]?.length) parts[parts.length - 1] += "\n";
+      if (e[39] != undefined) parts.push(`Всего неявок - ${e[39]}`);
+      if (e[40] != undefined) parts.push(`Отпуск - ${e[40]}`);
+      if (e[41] != undefined) parts.push(`ДДО - ${e[41]}`);
+      if (e[42] != undefined) parts.push(`БС - ${e[42]}`);
+      if (e[43] != undefined) parts.push(`БЛ - ${e[43]}`);
+      if (e[44] != undefined) parts.push(`Прогул - ${e[44]}`);
+      if (e[45] != undefined) parts.push(`Неявка - ${e[45]}`);
+      if (e[46] != undefined) parts.push(`Учёба - ${e[46]}`);
+      if (e[47] != undefined) parts.push(`Командировка - ${e[47]}`);
+
+      // Endi yagona toza matn
+      const resultText = parts.join("\n");
       let table = `
-💼 ${position}
+
 \`\`\`
 | 01 → ${e[2] || "-"} | 17 → ${e[18] || "-"} |
 | 02 → ${e[3] || "-"} | 18 → ${e[19] || "-"} |
@@ -212,24 +235,27 @@ const updateAllOperatorsDataGraph = async () => {
 | 15 → ${e[16] || "-"} | 31 → ${e[32] || "-"} |
 | 16 → ${e[17] || "-"} | XX → - |
 --------------------
-Рабочие дни   - ${e[33] || "0"}
-Рабочие часы  - ${e[34] || "0"}
+💼 ${position}
 
-Вечерние часы - ${e[36] || "0"}
-Ночные часы   - ${e[37] || "0"}
-Праздничные   - ${e[38] || "0"}
-
-Всего неявок  - ${e[39] || "0"}
-Отпуск        - ${e[40] || "0"}
-ДДО           - ${e[41] || "0"}
-БС            - ${e[42] || "0"}
-БЛ            - ${e[43] || "0"}
-Прогул        - ${e[44] || "0"}
-Неявка        - ${e[45] || "0"}
-Учёба         - ${e[46] || "0"}
-Командировка  - ${e[47] || "0"}
+${resultText}
 \`\`\`
-`
+`;
+//       Рабочие дни   - ${e[33] || "0"}
+// Рабочие часы  - ${e[34] || "0"}
+
+// Вечерние часы - ${e[36] || "0"}
+// Ночные часы   - ${e[37] || "0"}
+// Праздничные   - ${e[38] || "0"}
+
+// Всего неявок  - ${e[39] || "0"}
+// Отпуск        - ${e[40] || "0"}
+// ДДО           - ${e[41] || "0"}
+// БС            - ${e[42] || "0"}
+// БЛ            - ${e[43] || "0"}
+// Прогул        - ${e[44] || "0"}
+// Неявка        - ${e[45] || "0"}
+// Учёба         - ${e[46] || "0"}
+// Командировка  - ${e[47] || "0"}
       // let formattedScheduleText = `${table}`;
       // console.log(formattedScheduleText);
       // let textTable = escapeMarkdownV2(table);
