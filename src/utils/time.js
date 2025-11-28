@@ -189,7 +189,6 @@ const updateAllOperators229 = async (allOperators229) => {
 const updateAllOperatorsDataGraph = async () => {
   const allOperators = await readSheets("Табель", "B:AW2");
   for (let e of allOperators) {
-    console.log(typeof(e[36]), e[36] == '',e[36] , 'ev');
     if (e.length && e[0]?.length) {
       let fullName = e[0];
       let position = e[1];
@@ -213,7 +212,7 @@ const updateAllOperatorsDataGraph = async () => {
       if (e[46] != undefined) parts.push(`Учёба - ${e[46]}`);
       if (e[47] != undefined) parts.push(`Командировка - ${e[47]}`);
 
-      // Endi yagona toza matn
+
       const resultText = parts.join("\n");
       let table = `
 
@@ -240,25 +239,7 @@ const updateAllOperatorsDataGraph = async () => {
 ${resultText}
 \`\`\`
 `;
-//       Рабочие дни   - ${e[33] || "0"}
-// Рабочие часы  - ${e[34] || "0"}
 
-// Вечерние часы - ${e[36] || "0"}
-// Ночные часы   - ${e[37] || "0"}
-// Праздничные   - ${e[38] || "0"}
-
-// Всего неявок  - ${e[39] || "0"}
-// Отпуск        - ${e[40] || "0"}
-// ДДО           - ${e[41] || "0"}
-// БС            - ${e[42] || "0"}
-// БЛ            - ${e[43] || "0"}
-// Прогул        - ${e[44] || "0"}
-// Неявка        - ${e[45] || "0"}
-// Учёба         - ${e[46] || "0"}
-// Командировка  - ${e[47] || "0"}
-      // let formattedScheduleText = `${table}`;
-      // console.log(formattedScheduleText);
-      // let textTable = escapeMarkdownV2(table);
       let findOperator = await Operators.findOne({
         full_name: fullName,
       }).lean();
