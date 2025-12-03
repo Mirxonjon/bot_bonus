@@ -143,107 +143,107 @@ const getOneOperator = async (query) => {
     }
   }
 
-  console.log(findOperator);
-  await bot.sendMessage(chatId, textHtml, {
-    parse_mode: "HTML",
-    reply_markup: {
-      remove_keyboard: true,
-    },
-  });
+  // console.log(findOperator);
+  // await bot.sendMessage(chatId, textHtml, {
+  //   parse_mode: "HTML",
+  //   reply_markup: {
+  //     remove_keyboard: true,
+  //   },
+  // });
 
-  if (findOperator?.work_schedule) {
-    // console.log(text, "text");
-    await bot.sendMessage(
-      chatId,
-      `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
-      {
-        parse_mode: "MarkdownV2",
-        reply_markup: {
-          remove_keyboard: true,
-        },
-      }
-    );
-  } else {
-    await bot.sendMessage(
-      chatId,
-      `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
-      {
-        parse_mode: "MarkdownV2",
-        reply_markup: {
-          remove_keyboard: true,
-        },
-      }
-    );
-  }
-
-  // if (!findOperator?.picure_link) {
-  //   console.log(textHtml, "textHtml");
-
-  //   await bot.sendPhoto(chatId, findOperator.picure_link, {
-  //     caption: textHtml,
-  //     parse_mode: "HTML",
-  //     reply_markup: {
-  //       remove_keyboard: true,
-  //     },
-  //   });
-
-  //   if (findOperator?.work_schedule) {
-  //     await bot.sendMessage(
-  //       chatId,
-  //       `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
-  //       {
-  //         parse_mode: "MarkdownV2",
-  //         reply_markup: {
-  //           remove_keyboard: true,
-  //         },
-  //       }
-  //     );
-  //   } else {
-  //     await bot.sendMessage(
-  //       chatId,
-  //       `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
-  //       {
-  //         parse_mode: "MarkdownV2",
-  //         reply_markup: {
-  //           remove_keyboard: true,
-  //         },
-  //       }
-  //     );
-  //   }
+  // if (findOperator?.work_schedule) {
+  //   // console.log(text, "text");
+  //   await bot.sendMessage(
+  //     chatId,
+  //     `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
+  //     {
+  //       parse_mode: "MarkdownV2",
+  //       reply_markup: {
+  //         remove_keyboard: true,
+  //       },
+  //     }
+  //   );
   // } else {
-  //   console.log(findOperator);
-  //   await bot.sendMessage(chatId, textHtml, {
-  //     parse_mode: "HTML",
-  //     reply_markup: {
-  //       remove_keyboard: true,
-  //     },
-  //   });
-
-  //   if (findOperator?.work_schedule) {
-  //     // console.log(text, "text");
-  //     await bot.sendMessage(
-  //       chatId,
-  //       `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
-  //       {
-  //         parse_mode: "MarkdownV2",
-  //         reply_markup: {
-  //           remove_keyboard: true,
-  //         },
-  //       }
-  //     );
-  //   } else {
-  //     await bot.sendMessage(
-  //       chatId,
-  //       `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
-  //       {
-  //         parse_mode: "MarkdownV2",
-  //         reply_markup: {
-  //           remove_keyboard: true,
-  //         },
-  //       }
-  //     );
-  //   }
+  //   await bot.sendMessage(
+  //     chatId,
+  //     `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
+  //     {
+  //       parse_mode: "MarkdownV2",
+  //       reply_markup: {
+  //         remove_keyboard: true,
+  //       },
+  //     }
+  //   );
   // }
+
+  if (!findOperator?.picure_link) {
+    console.log(textHtml, "textHtml");
+
+    await bot.sendPhoto(chatId, findOperator.picure_link, {
+      caption: textHtml,
+      parse_mode: "HTML",
+      reply_markup: {
+        remove_keyboard: true,
+      },
+    });
+
+    if (findOperator?.work_schedule) {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    } else {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    }
+  } else {
+    console.log(findOperator);
+    await bot.sendMessage(chatId, textHtml, {
+      parse_mode: "HTML",
+      reply_markup: {
+        remove_keyboard: true,
+      },
+    });
+
+    if (findOperator?.work_schedule) {
+      // console.log(text, "text");
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}` + findOperator?.work_schedule,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    } else {
+      await bot.sendMessage(
+        chatId,
+        `👤 ${findOperator.full_name}\n❌ Расписание работы не указано`,
+        {
+          parse_mode: "MarkdownV2",
+          reply_markup: {
+            remove_keyboard: true,
+          },
+        }
+      );
+    }
+  }
 };
 
 const notUsersMessage = async (msg) => {
