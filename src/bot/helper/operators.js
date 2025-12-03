@@ -175,8 +175,8 @@ const getOneOperator = async (query) => {
   //     }
   //   );
   // }
-
-  if (!findOperator?.picure_link) {
+  // console.log(findOperator?.picure_link, "findOperator?.picure_link");
+  if (findOperator?.picure_link) {
     console.log(textHtml, "textHtml");
 
     await bot.sendPhoto(chatId, findOperator.picure_link, {
