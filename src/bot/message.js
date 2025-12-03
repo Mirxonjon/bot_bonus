@@ -23,6 +23,7 @@ bot.on("message", async (msg) => {
     "abrorovs",
     "nuriddin_alisherovich",
     "muxlisailhamdjanovna",
+    'umirzakov_mu'
   ];
   let adminUsersAll = ["mirxonjon", "muhammad8999"];
   if (usersAll.includes(username?.toLowerCase())) {
